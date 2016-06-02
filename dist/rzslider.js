@@ -1,7 +1,7 @@
 /*! angularjs-slider - v2.14.0 - 
  (c) Rafal Zajac <rzajac@gmail.com>, Valentin Hervieu <valentin@hervieu.me>, Jussi Saarivirta <jusasi@gmail.com>, Angelin Sirbu <angelin.sirbu@gmail.com> - 
  https://github.com/angular-slider/angularjs-slider - 
- 2016-05-25 */
+ 2016-06-02 */
 /*jslint unparam: true */
 /*global angular: false, console: false, define, module */
 (function(root, factory) {
@@ -1922,7 +1922,8 @@
     'use strict';
 
     return {
-      restrict: 'E',
+      restrict: 'AE',
+      replace: true,
       scope: {
         rzSliderModel: '=?',
         rzSliderHigh: '=?',
@@ -1946,7 +1947,111 @@
         scope.slider = new RzSlider(scope, elem); //attach on scope so we can test it
       }
     };
-  }]);
+  }])
+
+
+  /**
+   * Opentable styled price range slider. Built to be easy to use and defaults lots of
+   *  OT look and functionality settings
+   * Wraps rzslider and passes through values and options
+   *
+   * example usage:
+   *  <ot-price-range-slider
+   *      locale="otPriceRangeSlider.locale"
+   *      min="otPriceRangeSlider.minValue"
+   *      max="otPriceRangeSlider.maxValue">
+   *  </ot-price-range-slider>
+   *
+   *  locale: locale to load local specific currency, step, min, max e.g. en_US
+   *           if no locale provided then en_us defaulted
+   *  min: lower price range value, 2 way binding changes as user drags
+   *  max: upper price range value, 2 way binding changes as user drags
+   */
+  .directive('otPriceRangeSlider', ['$compile', 'otPriceRangeSliderLocaleConfig', function ($compile, otPriceRangeSliderLocaleConfig) {
+    return {
+      restrict: 'E',
+      scope: {
+        locale:"=",
+        min:"=",
+        max:"="
+      },
+      template: '<rzslider class="opentable-style" '
+                          +  'rz-slider-model="otPRConfig.minValue" '
+                          +  'rz-slider-high="otPRConfig.maxValue" '
+                          +  'rz-slider-options="otPRConfig.options" '
+                          +  '></rzslider>',
+      link: function (scope, iElm, iAttrs, controller) {
+        // load locale specific settings; default to us if none passed
+        //  or lang locale not found
+        var locale = scope.locale || "en_us";
+        var localeConfig = otPriceRangeSliderLocaleConfig[locale.toLowerCase()];
+        if (!localeConfig) {
+          otPriceRangeSliderLocaleConfig["en_us"];
+        }
+
+        // setup scope properties for use in rzslider
+        scope.otPRConfig = {
+          minValue: scope.min,    // range low value
+          maxValue: scope.max,    // range high value
+          options: {
+            floor: localeConfig.floor,  // minimum value allowed
+            ceil: localeConfig.ceil,    // maximum value allowed
+            step: localeConfig.step,    // drag increments
+            hideLimitLabels: true,      // hide upper and lower labels
+            noSwitching: true,          // cant drag ranges past each other
+            translate: function(value, sliderId, label) {
+              if (label === "model") {
+                scope.min = value;   // set outside scope var
+                if (value === localeConfig.floor) {
+                  return '<' + localeConfig.currency + value;
+                }
+              }
+
+              if (label === "high") {
+                scope.max = value;  // set outside scope var
+                if (value === localeConfig.ceil) {
+                  return '>' + localeConfig.currency + value;
+                }
+              }
+
+              return localeConfig.currency + value;
+            }
+          }
+        };
+      }
+    };
+  }])
+
+  /**
+   * private service with locale specific settings for currency etc
+   * used by otPriceRangeSlider
+   */
+  .factory("otPriceRangeSliderLocaleConfig", function() {
+    return {
+      "en_us": {
+        floor: 20,
+        ceil: 80,
+        step: 1,
+        currency: "$"
+      },
+      "de_de": {
+        floor: 10,
+        ceil: 90,
+        step: 5,
+        currency: "€"
+      },
+      "en_ca": {
+        floor: 30,
+        ceil: 100,
+        step: 6,
+        currency: "C$"
+      }
+    }
+  })
+;
+
+
+
 
   // IDE assist
 
@@ -1985,7 +2090,7 @@
   'use strict';
 
   $templateCache.put('rzSliderTpl.html',
-    "<span class=rz-bar-wrapper><span class=rz-bar></span></span> <span class=rz-bar-wrapper><span class=\"rz-bar rz-selection\" ng-style=barStyle></span></span> <span class=\"rz-pointer rz-pointer-min\" ng-style=minPointerStyle></span> <span class=\"rz-pointer rz-pointer-max\" ng-style=maxPointerStyle></span> <span class=\"rz-bubble rz-limit\"></span> <span class=\"rz-bubble rz-limit\"></span> <span class=rz-bubble></span> <span class=rz-bubble></span> <span class=rz-bubble></span><ul ng-show=showTicks class=rz-ticks><li ng-repeat=\"t in ticks track by $index\" class=rz-tick ng-class=\"{'rz-selected': t.selected}\" ng-style=t.style ng-attr-uib-tooltip=\"{{ t.tooltip }}\" ng-attr-tooltip-placement={{t.tooltipPlacement}} ng-attr-tooltip-append-to-body=\"{{ t.tooltip ? true : undefined}}\"><span ng-if=\"t.value != null\" class=rz-tick-value ng-attr-uib-tooltip=\"{{ t.valueTooltip }}\" ng-attr-tooltip-placement={{t.valueTooltipPlacement}}>{{ t.value }}</span> <span ng-if=\"t.legend != null\" class=rz-tick-legend>{{ t.legend }}</span></li></ul>"
+    "<div class=rzslider><span class=rz-bar-wrapper><span class=rz-bar></span></span> <span class=rz-bar-wrapper><span class=\"rz-bar rz-selection\" ng-style=barStyle></span></span> <span class=\"rz-pointer rz-pointer-min\" ng-style=minPointerStyle></span> <span class=\"rz-pointer rz-pointer-max\" ng-style=maxPointerStyle></span> <span class=\"rz-bubble rz-limit\"></span> <span class=\"rz-bubble rz-limit\"></span> <span class=rz-bubble></span> <span class=rz-bubble></span> <span class=rz-bubble></span><ul ng-show=showTicks class=rz-ticks><li ng-repeat=\"t in ticks track by $index\" class=rz-tick ng-class=\"{'rz-selected': t.selected}\" ng-style=t.style ng-attr-uib-tooltip=\"{{ t.tooltip }}\" ng-attr-tooltip-placement={{t.tooltipPlacement}} ng-attr-tooltip-append-to-body=\"{{ t.tooltip ? true : undefined}}\"><span ng-if=\"t.value != null\" class=rz-tick-value ng-attr-uib-tooltip=\"{{ t.valueTooltip }}\" ng-attr-tooltip-placement={{t.valueTooltipPlacement}}>{{ t.value }}</span> <span ng-if=\"t.legend != null\" class=rz-tick-legend>{{ t.legend }}</span></li></ul></div>"
   );
 
 }]);

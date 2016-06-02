@@ -6,6 +6,50 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
     value: 10
   };
 
+
+  $scope.otPriceRangeSlider= {
+    locale: "de_de",   // locale
+    minValue: 47,      // range low value
+    maxValue: 73       // range high value
+  }
+
+
+  //OT Range slider config
+  $scope.otRangeSlider = {
+    minValue: 40,    // range low value
+    maxValue: 60,    // range high value
+    options: {
+      floor: 20,
+      ceil: 80,
+      hideLimitLabels: true,   // hide upper and lower labels
+      noSwitching: true,       // cant drag ranges past each other
+      translate: (value, sliderId, label) => {
+        console.log("translate", value, " ", label)
+        // if (label === "ceil") {
+        //   return `>$${value}`
+        // }
+        // if (label === "floor") {
+        //   return `<$${value}`
+        // }
+
+        if (label === "model") {
+          if (value === 20) {
+            return `<$${value}`
+          }
+        }
+
+        if (label === "high") {
+          if (value === 80) {
+            return `>$${value}`
+          }
+        }
+
+        return `$${value}`
+      }
+    }
+  };
+
+
   //Range slider config
   $scope.rangeSlider = {
     minValue: 10,

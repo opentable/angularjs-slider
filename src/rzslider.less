@@ -252,3 +252,27 @@
     }
   }
 }
+
+
+
+/* Opentable style customizations */
+
+.rzslider {
+  &.opentable-style {
+    .rz-pointer {
+      width: 8px;
+      height: 30px;
+      background-color: grey;
+      border-radius: 0px;
+      -webkit-border-radius: 0px;
+
+      &:after {
+        content: none;
+      }
+
+      &.rz-active {
+        outline: 0;
+      }
+    }
+  }
+}
