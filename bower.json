@@ -1,13 +1,11 @@
 {
   "name": "angularjs-slider",
-  "version": "2.14.0",
-  "homepage": "https://github.com/angular-slider/angularjs-slider",
+  "version": "10.0.1",
+  "homepage": "https://github.com/opentable/angularjs-slider",
   "authors": [
-    "Rafal Zajac <rzajac@gmail.com>",
-    "Valentin Hervieu <valentin@hervieu.me>",
-    "Jussi Saarivirta <jusasi@gmail.com>"
+    "Denis OSullivan <dosullivan@opentable.com>"
   ],
-  "description": "AngularJS slider directive with no external dependencies. Mobile friendly!",
+  "description": "OT customizations of https://github.com/angular-slider, thx guys!",
   "main": [
     "dist/rzslider.js",
     "dist/rzslider.css"
@@ -23,8 +21,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "devDependencies": {
-    "angular": "~1.4.0"
-  }
+  ]
 }
