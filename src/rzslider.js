@@ -1971,7 +1971,7 @@
    *  min: lower price range value, 2 way binding changes as user drags
    *  max: upper price range value, 2 way binding changes as user drags
    */
-  .directive('otPriceRangeSlider', ['$compile', 'otPriceRangeSliderLocaleConfig', function ($compile, otPriceRangeSliderLocaleConfig) {
+  .directive('otPriceRangeSlider', ['$compile', function ($compile) {
     return {
       restrict: 'E',
       scope: {
@@ -1979,19 +1979,36 @@
         min:"=",
         max:"="
       },
-      template: '<rzslider class="opentable-style" '
-                          +  'rz-slider-model="otPRConfig.minValue" '
-                          +  'rz-slider-high="otPRConfig.maxValue" '
-                          +  'rz-slider-options="otPRConfig.options" '
-                          +  '></rzslider>',
       link: function (scope, iElm, iAttrs, controller) {
         // load locale specific settings; default to us if none passed
         //  or lang locale not found
-        var locale = scope.locale || "en_us";
-        var localeConfig = otPriceRangeSliderLocaleConfig[locale.toLowerCase()];
-        if (!localeConfig) {
-          otPriceRangeSliderLocaleConfig["en_us"];
+        var localeConfig = {
+          "en_us": {
+            floor: 20,
+            ceil: 80,
+            step: 1,
+            currency: "$"
+          },
+          "de_de": {
+            floor: 10,
+            ceil: 90,
+            step: 5,
+            currency: "€"
+          },
+          "en_ca": {
+            floor: 30,
+            ceil: 100,
+            step: 6,
+            currency: "C$"
+          }
         }
+        var locale = scope.locale || "en_us";
+        var localeConfig = localeConfig[locale.toLowerCase()];
+        if (!localeConfig) {
+          localeConfig = otPriceRangeSliderLocaleConfig["en_us"];
+        }
+        console.log("otPriceRangeSlider localeConfig:", localeConfig)
+
 
         // setup scope properties for use in rzslider
         scope.otPRConfig = {
@@ -2022,6 +2039,14 @@
             }
           }
         };
+
+        var otSliderHtml = '<rzslider class="opentable-style" '
+                            +  'rz-slider-model="otPRConfig.minValue" '
+                            +  'rz-slider-high="otPRConfig.maxValue" '
+                            +  'rz-slider-options="otPRConfig.options" '
+                            +  '></rzslider>';
+        var otSlider = $compile(otSliderHtml)(scope);
+        iElm.append(otSlider);
       }
     };
   }])
@@ -2030,28 +2055,29 @@
    * private service with locale specific settings for currency etc
    * used by otPriceRangeSlider
    */
-  .factory("otPriceRangeSliderLocaleConfig", function() {
-    return {
-      "en_us": {
-        floor: 20,
-        ceil: 80,
-        step: 1,
-        currency: "$"
-      },
-      "de_de": {
-        floor: 10,
-        ceil: 90,
-        step: 5,
-        currency: "€"
-      },
-      "en_ca": {
-        floor: 30,
-        ceil: 100,
-        step: 6,
-        currency: "C$"
-      }
-    }
-  })
+  //.factory("otPriceRangeSliderLocaleConfig", function() {
+  //  return {
+  //    "en_us": {
+  //      floor: 20,
+  //      ceil: 80,
+  //      step: 1,
+  //      currency: "$"
+  //    },
+  //    "de_de": {
+  //      floor: 10,
+  //      ceil: 90,
+  //      step: 5,
+  //      currency: "€"
+  //    },
+  //    "en_ca": {
+  //      floor: 30,
+  //      ceil: 100,
+  //      step: 6,
+  //      currency: "C$"
+  //    }
+  //  }
+  //})
+
 ;
 
 
