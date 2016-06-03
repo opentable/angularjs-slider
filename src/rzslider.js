@@ -1982,7 +1982,7 @@
       link: function (scope, iElm, iAttrs, controller) {
         // load locale specific settings; default to us if none passed
         //  or lang locale not found
-        var localeConfig = {
+        var localeConfigList = {
           "en_us": {
             floor: 20,
             ceil: 80,
@@ -2003,9 +2003,9 @@
           }
         }
         var locale = scope.locale || "en_us";
-        var localeConfig = localeConfig[locale.toLowerCase()];
+        var localeConfig = localeConfigList[locale.toLowerCase()];
         if (!localeConfig) {
-          localeConfig = otPriceRangeSliderLocaleConfig["en_us"];
+          localeConfig = localeConfigList["en_us"];
         }
         console.log("otPriceRangeSlider localeConfig:", localeConfig)
 
