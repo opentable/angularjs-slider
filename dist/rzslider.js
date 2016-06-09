@@ -1986,19 +1986,19 @@
           "en-us": {
             floor: 20,
             ceil: 80,
-            step: 5,
+            step: 1,
             currency: "$"
           },
           "de-de": {
             floor: 10,
             ceil: 90,
-            step: 5,
+            step: 1,
             currency: "€"
           },
           "en-ca": {
             floor: 30,
             ceil: 100,
-            step: 5,
+            step: 1,
             currency: "C$"
           }
         }
