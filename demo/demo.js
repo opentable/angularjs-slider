@@ -12,7 +12,7 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
 
 
   $scope.otPriceRangeSlider= {
-    locale: "de-de",   // locale
+    locale: "en",   // locale
     minValue: 45,      // range low value
     maxValue: 70       // range high value
   }
