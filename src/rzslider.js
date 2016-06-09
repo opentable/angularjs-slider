@@ -1983,6 +1983,7 @@
       link: function (scope, iElm, iAttrs, formController) {
         var originalMin = scope.min;
         var originalMax = scope.max;
+        var defaultCountry = "en-us";
 
         // load locale specific settings; default to us if none passed
         //  or lang locale not found
@@ -1990,7 +1991,7 @@
           "en-us": {
             floor: 20,
             ceil: 80,
-            step: 1,
+            step: 5,
             currency: "$"
           },
           "de-de": {
@@ -2006,10 +2007,10 @@
             currency: "C$"
           }
         }
-        var locale = scope.locale || "en_us";
+        var locale = scope.locale || defaultCountry;
         var localeConfig = localeConfigList[locale.toLowerCase()];
         if (!localeConfig) {
-          localeConfig = localeConfigList["en_us"];
+          localeConfig = localeConfigList[defaultCountry];
         }
         console.log("otPriceRangeSlider localeConfig:", localeConfig)
 
@@ -2031,7 +2032,7 @@
 
                 markFormDirty(formController, originalMin, value);
 
-                console.log("changed low value", value);
+                //console.log("changed low value", value);
                 if (value === localeConfig.floor) {
                   return '<' + localeConfig.currency + value;
                 }
@@ -2043,7 +2044,7 @@
 
                 markFormDirty(formController, originalMax, value);
 
-                console.log("changed high value", value);
+                //console.log("changed high value", value);
                 if (value === localeConfig.ceil) {
                   return '>' + localeConfig.currency + value;
                 }
