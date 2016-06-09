@@ -1,6 +1,10 @@
 var app = angular.module('rzSliderDemo', ['rzModule', 'ui.bootstrap']);
 
 app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
+  $scope.submitForm = function() {
+    alert("submitted")
+  };
+
   //Minimal slider config
   $scope.minSlider = {
     value: 10
@@ -8,9 +12,9 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
 
 
   $scope.otPriceRangeSlider= {
-    locale: "de_de",   // locale
-    minValue: 47,      // range low value
-    maxValue: 73       // range high value
+    locale: "de-de",   // locale
+    minValue: 45,      // range low value
+    maxValue: 70       // range high value
   }
 
 
@@ -24,7 +28,7 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
       hideLimitLabels: true,   // hide upper and lower labels
       noSwitching: true,       // cant drag ranges past each other
       translate: (value, sliderId, label) => {
-        console.log("translate", value, " ", label)
+        //console.log("translate", value, " ", label)
         // if (label === "ceil") {
         //   return `>$${value}`
         // }

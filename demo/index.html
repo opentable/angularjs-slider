@@ -25,17 +25,21 @@
     <rzslider rz-slider-model="minSlider.value"></rzslider>
   </article>
 
-  <article>
-    <h2>ot-price-range-slider wrapper</h2>
-    Min Value: <input type="number" ng-model="otPriceRangeSlider.minValue"/><br/>
-    Max Value: <input type="number" ng-model="otPriceRangeSlider.maxValue"/><br/>
-    <ot-price-range-slider
-      locale="otPriceRangeSlider.locale"
-      min="otPriceRangeSlider.minValue"
-      max="otPriceRangeSlider.maxValue">
-    </ot-price-range-slider>
-  </article>
+  <form name="otPRForm">
+    <article>
+      <h2>ot-price-range-slider wrapper</h2>
+      Min Value: <input type="number" ng-model="otPriceRangeSlider.minValue"/><br/>
+      Max Value: <input type="number" ng-model="otPriceRangeSlider.maxValue"/><br/>
+      <ot-price-range-slider
+        locale="otPriceRangeSlider.locale"
+        min="otPriceRangeSlider.minValue"
+        max="otPriceRangeSlider.maxValue">
+      </ot-price-range-slider>
+    </article>
 
+    <button type="submit" ng-disabled="!otPRForm.$dirty"
+        ng-click="submitForm()">Submit</button>
+  </form>
 
   <article>
     <h2>opentable-style Range slider rzslider directly</h2>
