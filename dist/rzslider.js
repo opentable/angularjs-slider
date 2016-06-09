@@ -1,7 +1,7 @@
 /*! angularjs-slider - v2.14.0 - 
  (c) Rafal Zajac <rzajac@gmail.com>, Valentin Hervieu <valentin@hervieu.me>, Jussi Saarivirta <jusasi@gmail.com>, Angelin Sirbu <angelin.sirbu@gmail.com> - 
  https://github.com/angular-slider/angularjs-slider - 
- 2016-06-03 */
+ 2016-06-09 */
 /*jslint unparam: true */
 /*global angular: false, console: false, define, module */
 (function(root, factory) {
@@ -1970,31 +1970,35 @@
   .directive('otPriceRangeSlider', ['$compile', function ($compile) {
     return {
       restrict: 'E',
+      require: '^form',
       scope: {
         locale:"=",
         min:"=",
         max:"="
       },
-      link: function (scope, iElm, iAttrs, controller) {
+      link: function (scope, iElm, iAttrs, formController) {
+        var originalMin = scope.min;
+        var originalMax = scope.max;
+
         // load locale specific settings; default to us if none passed
         //  or lang locale not found
         var localeConfigList = {
-          "en_us": {
+          "en-us": {
             floor: 20,
             ceil: 80,
             step: 1,
             currency: "$"
           },
-          "de_de": {
+          "de-de": {
             floor: 10,
             ceil: 90,
-            step: 5,
+            step: 1,
             currency: "€"
           },
-          "en_ca": {
+          "en-ca": {
             floor: 30,
             ceil: 100,
-            step: 6,
+            step: 1,
             currency: "C$"
           }
         }
@@ -2017,15 +2021,25 @@
             hideLimitLabels: true,      // hide upper and lower labels
             noSwitching: true,          // cant drag ranges past each other
             translate: function(value, sliderId, label) {
+              // if low value changed
               if (label === "model") {
                 scope.min = value;   // set outside scope var
+
+                markFormDirty(formController, originalMin, value);
+
+                console.log("changed low value", value);
                 if (value === localeConfig.floor) {
                   return '<' + localeConfig.currency + value;
                 }
               }
 
+              // if high value changed
               if (label === "high") {
                 scope.max = value;  // set outside scope var
+
+                markFormDirty(formController, originalMax, value);
+
+                console.log("changed high value", value);
                 if (value === localeConfig.ceil) {
                   return '>' + localeConfig.currency + value;
                 }
@@ -2036,6 +2050,8 @@
           }
         };
 
+        // wrap the rzslider control and pass it ot configuration
+        //  angular compile it and then add it to html
         var otSliderHtml = '<rzslider class="opentable-style" '
                             +  'rz-slider-model="otPRConfig.minValue" '
                             +  'rz-slider-high="otPRConfig.maxValue" '
@@ -2043,6 +2059,15 @@
                             +  '></rzslider>';
         var otSlider = $compile(otSliderHtml)(scope);
         iElm.append(otSlider);
+
+
+        // if form is passed and value really changed then mark dirty
+        function markFormDirty(formController, originalValue, newValue) {
+          if (formController && originalValue !== newValue) {
+            formController.$setDirty(true);
+          }
+        }
+
       }
     };
   }])
