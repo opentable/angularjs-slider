@@ -1991,7 +1991,7 @@
           "en-us": {
             floor: 20,
             ceil: 80,
-            step: 5,
+            step: 1,
             currency: "$"
           },
           "de-de": {
