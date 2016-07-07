@@ -2,7 +2,7 @@ var app = angular.module('rzSliderDemo', ['rzModule', 'ui.bootstrap']);
 
 app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
   $scope.submitForm = function() {
-    alert("submitted")
+    alert("this should only appear if user moved the slider")
   };
 
   //Minimal slider config
@@ -23,8 +23,8 @@ app.controller('MainCtrl', function($scope, $rootScope, $timeout, $modal) {
     minValue: 40,    // range low value
     maxValue: 60,    // range high value
     options: {
-      floor: 20,
-      ceil: 80,
+      floor: 19,
+      ceil: 81,
       hideLimitLabels: true,   // hide upper and lower labels
       noSwitching: true,       // cant drag ranges past each other
       translate: (value, sliderId, label) => {

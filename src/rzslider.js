@@ -1989,20 +1989,20 @@
         //  or lang locale not found
         var localeConfigList = {
           "en-us": {
-            floor: 20,
-            ceil: 80,
+            floor: 19,
+            ceil: 81,
             step: 1,
             currency: "$"
           },
           "de-de": {
-            floor: 10,
-            ceil: 90,
+            floor: 9,
+            ceil: 91,
             step: 1,
             currency: "€"
           },
           "en-ca": {
-            floor: 30,
-            ceil: 100,
+            floor: 29,
+            ceil: 101,
             step: 1,
             currency: "C$"
           }
@@ -2012,8 +2012,6 @@
         if (!localeConfig) {
           localeConfig = localeConfigList[defaultCountry];
         }
-        console.log("otPriceRangeSlider localeConfig:", localeConfig)
-
 
         // setup scope properties for use in rzslider
         scope.otPRConfig = {
@@ -2032,9 +2030,11 @@
 
                 markFormDirty(formController, originalMin, value);
 
+                // OT wants to display less than floor as "< floor + 1"
+                //  but the value needs to be the value
                 //console.log("changed low value", value);
                 if (value === localeConfig.floor) {
-                  return '<' + localeConfig.currency + value;
+                  return '<' + localeConfig.currency + (value + 1);
                 }
               }
 
@@ -2044,9 +2044,11 @@
 
                 markFormDirty(formController, originalMax, value);
 
+                // OT wants to display greater than ceil as "> ceil - 1"
+                //  but the value needs to be the value
                 //console.log("changed high value", value);
                 if (value === localeConfig.ceil) {
-                  return '>' + localeConfig.currency + value;
+                  return '>' + localeConfig.currency + (value - 1);
                 }
               }
 
