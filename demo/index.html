@@ -27,7 +27,7 @@
 
   <form name="otPRForm">
     <article>
-      <h2>ot-price-range-slider wrapper</h2>
+      <h2>ot-price-range-slider used inside form, notice submit is disabled until u slide</h2>
       Min Value: <input type="number" ng-model="otPriceRangeSlider.minValue"/><br/>
       Max Value: <input type="number" ng-model="otPriceRangeSlider.maxValue"/><br/>
       <ot-price-range-slider
@@ -41,8 +41,9 @@
         ng-click="submitForm()">Submit</button>
   </form>
 
+
   <article>
-    <h2>opentable-style Range slider rzslider directly</h2>
+    <h2>rzslider used standalone with OT style (tests style only)</h2>
     Min Value: <input type="number" ng-model="otRangeSlider.minValue"/><br/>
     Max Value: <input type="number" ng-model="otRangeSlider.maxValue"/><br/>
     <rzslider class="opentable-style"
