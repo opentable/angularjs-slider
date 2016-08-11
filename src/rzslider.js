@@ -2023,6 +2023,7 @@
             step: localeConfig.step,    // drag increments
             hideLimitLabels: true,      // hide upper and lower labels
             noSwitching: true,          // cant drag ranges past each other
+            minRange: 1,                // min and max should not overlap
             translate: function(value, sliderId, label) {
               // if low value changed
               if (label === "model") {

@@ -1,7 +1,7 @@
 /*! angularjs-slider - v2.14.0 - 
  (c) Rafal Zajac <rzajac@gmail.com>, Valentin Hervieu <valentin@hervieu.me>, Jussi Saarivirta <jusasi@gmail.com>, Angelin Sirbu <angelin.sirbu@gmail.com> - 
  https://github.com/angular-slider/angularjs-slider - 
- 2016-07-07 */
+ 2016-08-10 */
 /*jslint unparam: true */
 /*global angular: false, console: false, define, module */
 (function(root, factory) {
@@ -2019,6 +2019,7 @@
             step: localeConfig.step,    // drag increments
             hideLimitLabels: true,      // hide upper and lower labels
             noSwitching: true,          // cant drag ranges past each other
+            minRange: 1,                // min and max should not overlap
             translate: function(value, sliderId, label) {
               // if low value changed
               if (label === "model") {
