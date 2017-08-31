@@ -1989,8 +1989,8 @@
         //  or lang locale not found
         var localeConfigList = {
           "au": {
-            floor: 40,
-            ceil: 100,
+            floor: 39,
+            ceil: 101,
             step: 1,
             currency: "$A"
           },
