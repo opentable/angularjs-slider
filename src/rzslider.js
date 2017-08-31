@@ -1983,7 +1983,7 @@
       link: function (scope, iElm, iAttrs, formController) {
         var originalMin = scope.min;
         var originalMax = scope.max;
-        var defaultCountry = "en-us";
+        var defaultCountry = "us";
 
         // load locale specific settings; default to us if none passed
         //  or lang locale not found
