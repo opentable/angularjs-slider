@@ -1988,23 +1988,53 @@
         // load locale specific settings; default to us if none passed
         //  or lang locale not found
         var localeConfigList = {
-          "en-us": {
-            floor: 19,
-            ceil: 81,
+          "au": {
+            floor: 40,
+            ceil: 100,
             step: 1,
-            currency: "$"
+            currency: "$A"
           },
-          "de-de": {
+          "ca": {
+            floor: 29,
+            ceil: 101,
+            step: 1,
+            currency: "Can$"
+          },
+          "de": {
             floor: 9,
             ceil: 91,
             step: 1,
             currency: "€"
           },
-          "en-ca": {
-            floor: 29,
-            ceil: 101,
+          "jp": {
+            floor: 5000,
+            ceil: 10000,
+            step: 100,
+            currency: "¥"
+          },
+          "nl": {
+            floor: 30,
+            ceil: 51,
             step: 1,
-            currency: "C$"
+            currency: "€"
+          },
+          "mx": {
+            floor: 300,
+            ceil: 500,
+            step: 10,
+            currency: "Mex$"
+          },
+          "uk": {
+            floor: 25,
+            ceil: 41,
+            step: 1,
+            currenct: "£"
+          },
+          "us": {
+            floor: 30,
+            ceil: 50,
+            step: 1,
+            currency: "$"
           }
         }
         var locale = scope.locale || defaultCountry;
