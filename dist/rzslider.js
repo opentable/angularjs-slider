@@ -2035,7 +2035,7 @@
         }
         var supportedLocales = ["au","ca","de","jp","nl","mx","uk","us"]
         if (supportedLocales.indexOf(scope.locale) === -1) {
-          console.warn('Default locale will be used, pass in a supported locale:', JSON.stringify(supportedLocales))
+          console.warn('Default locale will be used: pass in a supported locale:', supportedLocales.join(', '))
         }
 
         var locale = supportedLocales.indexOf(scope.locale) >= 0 ? scope.locale : defaultCountry;
