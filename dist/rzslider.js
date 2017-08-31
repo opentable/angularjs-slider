@@ -1997,43 +1997,48 @@
             currency: "Can$"
           },
           "de": {
-            floor: 9,
-            ceil: 91,
+            floor: 8,
+            ceil: 92,
             step: 1,
             currency: "€"
           },
           "jp": {
-            floor: 5000,
-            ceil: 10000,
+            floor: 4999,
+            ceil: 10001,
             step: 100,
             currency: "¥"
           },
           "nl": {
-            floor: 30,
-            ceil: 51,
+            floor:29,
+            ceil: 52,
             step: 1,
             currency: "€"
           },
           "mx": {
-            floor: 300,
-            ceil: 500,
+            floor: 299,
+            ceil: 501,
             step: 10,
             currency: "Mex$"
           },
           "uk": {
-            floor: 25,
-            ceil: 41,
+            floor: 24,
+            ceil: 42,
             step: 1,
-            currenct: "£"
+            currency: "£"
           },
           "us": {
-            floor: 30,
-            ceil: 50,
+            floor: 29,
+            ceil: 51,
             step: 1,
             currency: "$"
           }
         }
-        var locale = scope.locale || defaultCountry;
+        var supportedLocales = ["au","ca","de","jp","nl","mx","uk","us"]
+        if (supportedLocales.indexOf(scope.locale) === -1) {
+          console.warn('Default locale will be used, pass in a supported locale:', JSON.stringify(supportedLocales))
+        }
+
+        var locale = supportedLocales.indexOf(scope.locale) >= 0 ? scope.locale : defaultCountry;
         var localeConfig = localeConfigList[locale.toLowerCase()];
         if (!localeConfig) {
           localeConfig = localeConfigList[defaultCountry];
