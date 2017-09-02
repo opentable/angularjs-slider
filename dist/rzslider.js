@@ -1,7 +1,7 @@
 /*! angularjs-slider - v2.14.0 - 
  (c) Rafal Zajac <rzajac@gmail.com>, Valentin Hervieu <valentin@hervieu.me>, Jussi Saarivirta <jusasi@gmail.com>, Angelin Sirbu <angelin.sirbu@gmail.com> - 
  https://github.com/angular-slider/angularjs-slider - 
- 2016-08-10 */
+ 2017-09-01 */
 /*jslint unparam: true */
 /*global angular: false, console: false, define, module */
 (function(root, factory) {
@@ -1979,31 +1979,71 @@
       link: function (scope, iElm, iAttrs, formController) {
         var originalMin = scope.min;
         var originalMax = scope.max;
-        var defaultCountry = "en-us";
+        var defaultCountry = "us";
+
+        var euroValues = {
+          floor: 8,
+          ceil: 92,
+          step: 1,
+          currency: "€"
+        }
 
         // load locale specific settings; default to us if none passed
         //  or lang locale not found
         var localeConfigList = {
-          "en-us": {
-            floor: 19,
-            ceil: 81,
+          au: {
+            floor: 39,
+            ceil: 101,
             step: 1,
-            currency: "$"
+            currency: "$A"
           },
-          "de-de": {
-            floor: 9,
-            ceil: 91,
-            step: 1,
-            currency: "€"
-          },
-          "en-ca": {
+          ca: {
             floor: 29,
             ceil: 101,
             step: 1,
-            currency: "C$"
+            currency: "Can$"
+          },
+          de: euroValues,
+          fr: euroValues,
+          it: euroValues,
+          jp: {
+            floor: 4999,
+            ceil: 10001,
+            step: 100,
+            currency: "¥"
+          },
+          mx: {
+            floor: 299,
+            ceil: 501,
+            step: 10,
+            currency: "Mex$"
+          },
+          nl: {
+            floor:29,
+            ceil: 52,
+            step: 1,
+            currency: "€"
+          },
+          sp: euroValues,
+          uk: {
+            floor: 24,
+            ceil: 42,
+            step: 1,
+            currency: "£"
+          },
+          us: {
+            floor: 29,
+            ceil: 51,
+            step: 1,
+            currency: "$"
           }
         }
-        var locale = scope.locale || defaultCountry;
+        var SUPPORTED_LOCALES = ["au","ca","de","fr","it", "jp","mx","nl","sp", "uk","us"]
+        if (SUPPORTED_LOCALES.indexOf(scope.locale) === -1) {
+          console.warn('Default locale will be used: pass in a supported locale:', SUPPORTED_LOCALES.join(', '))
+        }
+
+        var locale = SUPPORTED_LOCALES.indexOf(scope.locale) >= 0 ? scope.locale : defaultCountry;
         var localeConfig = localeConfigList[locale.toLowerCase()];
         if (!localeConfig) {
           localeConfig = localeConfigList[defaultCountry];
