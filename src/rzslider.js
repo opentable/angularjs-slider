@@ -2075,7 +2075,7 @@
                 //  but the value needs to be the value
                 //console.log("changed low value", value);
                 if (value === localeConfig.floor) {
-                  return '<' + localeConfig.currency + (value + 1);
+                  return localeConfig.currency + (value) + ' & under';
                 }
               }
 
@@ -2089,7 +2089,7 @@
                 //  but the value needs to be the value
                 //console.log("changed high value", value);
                 if (value === localeConfig.ceil) {
-                  return '>' + localeConfig.currency + (value - 1);
+                  return localeConfig.currency + (value) + ' & over';
                 }
               }
 
