@@ -1996,14 +1996,14 @@
         //  or lang locale not found
         var localeConfigList = {
           au: {
-            floor: 39,
-            ceil: 101,
+            floor: 40,
+            ceil: 100,
             step: 1,
             currency: "$A"
           },
           ca: {
-            floor: 29,
-            ceil: 101,
+            floor: 30,
+            ceil: 100,
             step: 1,
             currency: "Can$"
           },
@@ -2011,33 +2011,33 @@
           fr: euroValues,
           it: euroValues,
           jp: {
-            floor: 4999,
-            ceil: 10001,
+            floor: 5000,
+            ceil: 10000,
             step: 100,
             currency: "¥"
           },
           mx: {
-            floor: 299,
-            ceil: 501,
+            floor: 300,
+            ceil: 500,
             step: 10,
             currency: "Mex$"
           },
           nl: {
-            floor:29,
-            ceil: 52,
+            floor: 30,
+            ceil: 51,
             step: 1,
             currency: "€"
           },
           sp: euroValues,
           uk: {
-            floor: 24,
-            ceil: 42,
+            floor: 25,
+            ceil: 41,
             step: 1,
             currency: "£"
           },
           us: {
-            floor: 29,
-            ceil: 51,
+            floor: 19,
+            ceil: 81,
             step: 1,
             currency: "$"
           }
